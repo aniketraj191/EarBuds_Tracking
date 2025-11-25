@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earbud Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-headphones"></i> Earbud Tracker</h1>
+            <p>Report and track lost and found earbuds</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="report-lost">Report Lost</button>
+            <button class="tab-btn" data-tab="report-found">Report Found</button>
+            <button class="tab-btn" data-tab="search">Search Lost</button>
+        </div>
+
+        <div class="tab-content active" id="report-lost">
+            <h2>Report Lost Earbuds</h2>
+            <form id="lost-form">
+                <div class="form-group">
+                    <label for="brand">Brand:</label>
+                    <input type="text" id="brand" required>
+                </div>
+                <div class="form-group">
+                    <label for="color">Color:</label>
+                    <input type="text" id="color" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location Lost:</label>
+                    <input type="text" id="location" required>
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-exclamation-circle"></i> Report Lost
+                </button>
+            </form>
+        </div>
+
+        <div class="tab-content" id="report-found">
+            <h2>Report Found Earbuds</h2>
+            <div id="lost-list">
+                <p class="empty-message">No lost earbuds reported yet.</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="search">
+            <h2>Search Lost Earbuds</h2>
+            <div class="search-box">
+                <input type="text" id="search-term" placeholder="Search by brand or color...">
+                <button id="search-btn" class="btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            <div id="search-results"></div>
+        </div>
+
+        <div class="recent-section">
+            <div class="section-header">
+                <h2>Recent Reports</h2>
+                <button id="delete-history" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Delete History
+                </button>
+            </div>
+            <div id="recent-reports">
+                <p class="empty-message">No recent reports.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">
+        <div class="toast-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-content">
+            <div class="toast-title">Success</div>
+            <div class="toast-message">Your action was completed successfully!</div>
+        </div>
+        <button class="toast-close">&times;</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
