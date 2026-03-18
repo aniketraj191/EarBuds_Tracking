@@ -3,85 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earbud Tracker</title>
+    <title>Earbud Tracker | Lost & Found System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
     <div class="container">
-        <header>
-            <h1><i class="fas fa-headphones"></i> Earbud Tracker</h1>
-            <p>Report and track lost and found earbuds</p>
+        <header class="fade-in">
+            <div class="header-content">
+                <i class="fas fa-headphones header-icon"></i>
+                <h1>Earbud <span class="highlight">Tracker</span></h1>
+            </div>
+            <p class="subtitle">Report and track lost and found earbuds in real-time</p>
+            <div class="stats-badge">
+                <span><i class="fas fa-chart-line"></i> Active Reports: <span id="activeCount">0</span></span>
+                <span><i class="fas fa-check-circle"></i> Found: <span id="foundCount">0</span></span>
+            </div>
         </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="report-lost">Report Lost</button>
-            <button class="tab-btn" data-tab="report-found">Report Found</button>
-            <button class="tab-btn" data-tab="search">Search Lost</button>
+        <div class="tabs slide-in">
+            <button class="tab-btn active" data-tab="report-lost">
+                <i class="fas fa-exclamation-triangle"></i> Report Lost
+            </button>
+            <button class="tab-btn" data-tab="report-found">
+                <i class="fas fa-check-circle"></i> Report Found
+            </button>
+            <button class="tab-btn" data-tab="search">
+                <i class="fas fa-search"></i> Search Lost
+            </button>
+            <button class="tab-btn" data-tab="gallery">
+                <i class="fas fa-images"></i> Gallery
+            </button>
         </div>
 
+        <!-- Report Lost Tab -->
         <div class="tab-content active" id="report-lost">
-            <h2>Report Lost Earbuds</h2>
-            <form id="lost-form">
-                <div class="form-group">
-                    <label for="brand">Brand:</label>
-                    <input type="text" id="brand" required>
-                </div>
-                <div class="form-group">
-                    <label for="color">Color:</label>
-                    <input type="text" id="color" required>
-                </div>
-                <div class="form-group">
-                    <label for="location">Location Lost:</label>
-                    <input type="text" id="location" required>
-                </div>
-                <button type="submit" class="btn">
-                    <i class="fas fa-exclamation-circle"></i> Report Lost
-                </button>
-            </form>
+            <div class="content-card">
+                <h2><i class="fas fa-pen"></i> Report Lost Earbuds</h2>
+                <form id="lost-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Brand</label>
+                            <input type="text" id="brand" placeholder="e.g., Apple AirPods, Samsung Buds" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-palette"></i> Color</label>
+                            <input type="text" id="color" placeholder="e.g., White, Black, Silver" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Location Lost</label>
+                        <input type="text" id="location" placeholder="e.g., Library, Cafeteria, Park" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-image"></i> Upload Image (Optional)</label>
+                        <input type="file" id="earbudImage" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary pulse">
+                        <i class="fas fa-exclamation-circle"></i> Report Lost
+                        <span class="btn-effect"></span>
+                    </button>
+                </form>
+            </div>
         </div>
 
+        <!-- Report Found Tab -->
         <div class="tab-content" id="report-found">
-            <h2>Report Found Earbuds</h2>
-            <div id="lost-list">
-                <p class="empty-message">No lost earbuds reported yet.</p>
+            <div class="content-card">
+                <h2><i class="fas fa-check"></i> Report Found Earbuds</h2>
+                <div class="filter-bar">
+                    <input type="text" id="filterLost" placeholder="Filter by brand or color..." class="filter-input">
+                    <button class="btn btn-secondary" id="clearFilter"><i class="fas fa-times"></i> Clear</button>
+                </div>
+                <div id="lost-list" class="card-grid">
+                    <p class="empty-message">No lost earbuds reported yet.</p>
+                </div>
             </div>
         </div>
 
+        <!-- Search Tab -->
         <div class="tab-content" id="search">
-            <h2>Search Lost Earbuds</h2>
-            <div class="search-box">
-                <input type="text" id="search-term" placeholder="Search by brand or color...">
-                <button id="search-btn" class="btn">
-                    <i class="fas fa-search"></i> Search
-                </button>
+            <div class="content-card">
+                <h2><i class="fas fa-search"></i> Search Lost Earbuds</h2>
+                <div class="search-box">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="search-term" placeholder="Search by brand, color, or location...">
+                    </div>
+                    <button id="search-btn" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                <div id="search-results" class="card-grid"></div>
             </div>
-            <div id="search-results"></div>
         </div>
 
-        <div class="recent-section">
+        <!-- Gallery Tab -->
+        <div class="tab-content" id="gallery">
+            <div class="content-card">
+                <h2><i class="fas fa-images"></i> Earbud Gallery</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="images/airpods.jpg" alt="AirPods" onerror="this.src='images/earbud-default.jpg'">
+                        <div class="gallery-overlay">
+                            <h3>Apple AirPods</h3>
+                            <p>Popular lost item</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/samsung-buds.jpg" alt="Samsung Buds" onerror="this.src='images/earbud-default.jpg'">
+                        <div class="gallery-overlay">
+                            <h3>Samsung Galaxy Buds</h3>
+                            <p>Wireless earbuds</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/sony-buds.jpg" alt="Sony" onerror="this.src='images/earbud-default.jpg'">
+                        <div class="gallery-overlay">
+                            <h3>Sony WF-1000XM</h3>
+                            <p>Noise cancelling</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/boat-buds.jpg" alt="boAt" onerror="this.src='images/earbud-default.jpg'">
+                        <div class="gallery-overlay">
+                            <h3>boAt Airdopes</h3>
+                            <p>Budget friendly</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Reports Section -->
+        <div class="recent-section slide-in">
             <div class="section-header">
-                <h2>Recent Reports</h2>
+                <h2><i class="fas fa-clock"></i> Recent Reports</h2>
                 <button id="delete-history" class="btn btn-danger">
-                    <i class="fas fa-trash-alt"></i> Delete History
+                    <i class="fas fa-trash-alt"></i> Clear History
                 </button>
             </div>
-            <div id="recent-reports">
+            <div id="recent-reports" class="card-grid">
                 <p class="empty-message">No recent reports.</p>
             </div>
         </div>
     </div>
 
+    <!-- Toast Notification -->
     <div id="toast" class="toast">
         <div class="toast-icon">
             <i class="fas fa-check-circle"></i>
         </div>
         <div class="toast-content">
             <div class="toast-title">Success</div>
-            <div class="toast-message">Your action was completed successfully!</div>
+            <div class="toast-message"></div>
         </div>
-        <button class="toast-close">&times;</button>
+        <button class="toast-close"><i class="fas fa-times"></i></button>
     </div>
 
     <script src="app.js"></script>
